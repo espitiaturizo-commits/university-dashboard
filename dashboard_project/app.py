@@ -7,6 +7,7 @@ import seaborn as sns
 st.set_page_config(
     page_title="University Dashboard",
     layout="wide"
+    st.write("Team Members: Kevin Espitia")
 )
 
 # TITLE
