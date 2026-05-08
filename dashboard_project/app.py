@@ -13,7 +13,7 @@ st.set_page_config(
 st.title("🎓 University Student Analytics Dashboard")
 
 # LOAD DATA
-df = pd.read_csv("university_student_data.csv")
+df = pd.read_csv("dashboard_project/university_student_data.csv")
 
 # SIDEBAR FILTERS
 st.sidebar.header("Filters")
