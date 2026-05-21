@@ -8,7 +8,10 @@ st.set_page_config(
     page_title="University Dashboard",
     layout="wide"
 )
+
+# TEAM MEMBERS
 st.write("Team Members: Kevin Espitia")
+
 # TITLE
 st.title("🎓 University Student Analytics Dashboard")
 
@@ -25,7 +28,7 @@ selected_year = st.sidebar.selectbox(
 
 selected_term = st.sidebar.selectbox(
     "Select Term",
-    df["Term"].unique()
+    sorted(df["Term"].unique())
 )
 
 # FILTER DATA
@@ -46,55 +49,52 @@ col2.metric("Student Satisfaction", f"{avg_satisfaction:.2f}%")
 col3.metric("Total Enrolled", int(total_enrolled))
 
 # GRAPH 1
-st.subheader("Retention Rate Trends")
-
-retention_term = filtered_df.groupby("Term")["Retention Rate (%)"].mean()
+st.subheader("Retention Rate")
 
 fig1, ax1 = plt.subplots(figsize=(8,5))
 
-ax1.bar(
-    retention_term.index,
-    retention_term.values
+ax1.plot(
+    filtered_df.index,
+    filtered_df["Retention Rate (%)"],
+    marker='o'
 )
 
-ax1.set_title("Retention Rate by Term")
-ax1.set_xlabel("Term")
+ax1.set_title("Retention Rate")
+ax1.set_xlabel("Records")
 ax1.set_ylabel("Retention Rate (%)")
+ax1.grid(True)
 
 st.pyplot(fig1)
 
 # GRAPH 2
-satisfaction_term = filtered_df.groupby("Term")["Student Satisfaction (%)"].mean()
+st.subheader("Student Satisfaction")
 
 fig2, ax2 = plt.subplots(figsize=(8,5))
 
-sns.barplot(
-    x=satisfaction_term.index,
-    y=satisfaction_term.values,
-    ax=ax2
+ax2.bar(
+    filtered_df.index,
+    filtered_df["Student Satisfaction (%)"]
 )
 
-ax2.set_title("Student Satisfaction by Term")
-ax2.set_xlabel("Term")
-ax2.set_ylabel("Average Satisfaction (%)")
+ax2.set_title("Student Satisfaction")
+ax2.set_xlabel("Records")
+ax2.set_ylabel("Satisfaction (%)")
 
 st.pyplot(fig2)
 
 # GRAPH 3
-st.subheader("Spring vs Fall Comparison")
+st.subheader("Enrollment")
 
-term_compare = filtered_df.groupby("Term")["Retention Rate (%)"].mean()
+fig3, ax3 = plt.subplots(figsize=(8,5))
 
-fig3, ax3 = plt.subplots(figsize=(6,5))
-
-sns.barplot(
-    x=term_compare.index,
-    y=term_compare.values,
-    ax=ax3
+ax3.bar(
+    filtered_df.index,
+    filtered_df["Enrolled"]
 )
 
-ax3.set_title("Retention by Term")
-ax3.set_ylabel("Retention Rate (%)")
+ax3.set_title("Enrolled Students")
+ax3.set_xlabel("Records")
+ax3.set_ylabel("Students")
 
 st.pyplot(fig3)
 
