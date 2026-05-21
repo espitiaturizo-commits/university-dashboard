@@ -48,38 +48,34 @@ col3.metric("Total Enrolled", int(total_enrolled))
 # GRAPH 1
 st.subheader("Retention Rate Trends")
 
-retention_year = filtered_df.groupby("Year")["Retention Rate (%)"].mean()
+retention_term = filtered_df.groupby("Term")["Retention Rate (%)"].mean()
 
 fig1, ax1 = plt.subplots(figsize=(8,5))
 
-ax1.plot(
-    retention_year.index,
-    retention_year.values,
-    marker='o'
+ax1.bar(
+    retention_term.index,
+    retention_term.values
 )
 
-ax1.set_title("Retention Rate Over Time")
-ax1.set_xlabel("Year")
+ax1.set_title("Retention Rate by Term")
+ax1.set_xlabel("Term")
 ax1.set_ylabel("Retention Rate (%)")
-ax1.grid(True)
 
 st.pyplot(fig1)
 
 # GRAPH 2
-st.subheader("Student Satisfaction by Year")
-
-satisfaction = filtered_df.groupby("Year")["Student Satisfaction (%)"].mean()
+satisfaction_term = filtered_df.groupby("Term")["Student Satisfaction (%)"].mean()
 
 fig2, ax2 = plt.subplots(figsize=(8,5))
 
 sns.barplot(
-    x=satisfaction.index,
-    y=satisfaction.values,
+    x=satisfaction_term.index,
+    y=satisfaction_term.values,
     ax=ax2
 )
 
-ax2.set_title("Student Satisfaction Scores")
-ax2.set_xlabel("Year")
+ax2.set_title("Student Satisfaction by Term")
+ax2.set_xlabel("Term")
 ax2.set_ylabel("Average Satisfaction (%)")
 
 st.pyplot(fig2)
