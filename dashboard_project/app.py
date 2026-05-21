@@ -48,7 +48,7 @@ col3.metric("Total Enrolled", int(total_enrolled))
 # GRAPH 1
 st.subheader("Retention Rate Trends")
 
-retention_year = df.groupby("Year")["Retention Rate (%)"].mean()
+retention_year = filtered_df.groupby("Year")["Retention Rate (%)"].mean()
 
 fig1, ax1 = plt.subplots(figsize=(8,5))
 
@@ -68,7 +68,7 @@ st.pyplot(fig1)
 # GRAPH 2
 st.subheader("Student Satisfaction by Year")
 
-satisfaction = df.groupby("Year")["Student Satisfaction (%)"].mean()
+satisfaction = filtered_df.groupby("Year")["Student Satisfaction (%)"].mean()
 
 fig2, ax2 = plt.subplots(figsize=(8,5))
 
@@ -87,7 +87,7 @@ st.pyplot(fig2)
 # GRAPH 3
 st.subheader("Spring vs Fall Comparison")
 
-term_compare = df.groupby("Term")["Retention Rate (%)"].mean()
+term_compare = filtered_df.groupby("Term")["Retention Rate (%)"].mean()
 
 fig3, ax3 = plt.subplots(figsize=(6,5))
 
